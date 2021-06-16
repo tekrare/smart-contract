@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 
 abstract contract AccessControl {
   address private owner;
+  mapping (address => bool) private admins;
 
   constructor () {
     owner = msg.sender;
@@ -12,5 +13,14 @@ abstract contract AccessControl {
   modifier onlyOwner() {
     require(msg.sender == owner);
     _;
+  }
+
+  modifier onlyAdmin() {
+    require(msg.sender == owner || admins[msg.sender]);
+    _;
+  }
+
+  function giveAdminRole(address admin) public onlyOwner {
+    admins[admin] = true;
   }
 }
