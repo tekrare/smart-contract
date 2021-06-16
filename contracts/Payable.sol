@@ -9,7 +9,7 @@ contract Payable is AccessControl {
 
   receive () external payable {}
 
-  function getBalance() public view onlyOwner returns (uint) {
+  function getBalance() public view onlyAdmin returns (uint) {
     return address(this).balance;
   }
 
