@@ -1,0 +1,12 @@
+{
+  "name": "smart-contract",
+  "version": "1.0.0",
+  "description": "TekRare's smart-contract",
+  "main": "contracts/TekRare.sol",
+  "repository": "git@github.com:tekrare/smart-contract.git",
+  "author": "Lucas Sanchez",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.1.0"
+  }
+}
