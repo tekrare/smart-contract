@@ -8,6 +8,8 @@ import "./Payable.sol";
 import "./ITekRare.sol";
 
 contract TekRare is ITekRare, ERC1155Supply, AccessControl, Payable {
+  uint public override tokenAmount;
+
   constructor (string memory uri) ERC1155(uri) {}
 
   function setUri(string memory uri) public override onlyAdmin {
@@ -16,9 +18,11 @@ contract TekRare is ITekRare, ERC1155Supply, AccessControl, Payable {
 
   function mint(address to, uint256 id, uint256 amount, bytes memory data) public override onlyAdmin {
     _mint(to, id, amount, data);
+    tokenAmount++;
   }
 
   function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data) public override onlyAdmin {
     _mintBatch(to, ids, amounts, data);
+    tokenAmount += ids.length;
   }
 }
