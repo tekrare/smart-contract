@@ -17,4 +17,5 @@ interface ITekRare is IERC1155, IAuctionManager {
     uint[] memory startingBids,
     uint[] memory biddingTimes
   ) external;
+  function collectEndedAuctions() external returns (uint);
 }
