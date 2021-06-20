@@ -10,4 +10,11 @@ interface ITekRare is IERC1155, IAuctionManager {
   function setUri(string memory uri) external;
   function mint(address to, uint tokenId, uint amount) external;
   function mintBatch(address to, uint[] memory tokenIds, uint[] memory amounts) external;
+  function mintAndAuction(uint tokenId, uint amount, uint startingBid, uint biddingTime) external;
+  function mintBatchAndAuction(
+    uint[] memory tokenIds,
+    uint[] memory amounts,
+    uint[] memory startingBids,
+    uint[] memory biddingTimes
+  ) external;
 }
