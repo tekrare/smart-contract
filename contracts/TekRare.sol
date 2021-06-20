@@ -16,13 +16,13 @@ contract TekRare is ITekRare, ERC1155Supply, AccessControl, Payable {
     _setURI(uri);
   }
 
-  function mint(address to, uint256 id, uint256 amount, bytes memory data) public override onlyAdmin {
-    _mint(to, id, amount, data);
+  function mint(address to, uint tokenId, uint amount) public override onlyAdmin {
+    _mint(to, tokenId, amount, "");
     tokenAmount++;
   }
 
-  function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data) public override onlyAdmin {
-    _mintBatch(to, ids, amounts, data);
-    tokenAmount += ids.length;
+  function mintBatch(address to, uint[] memory tokenIds, uint[] memory amounts) public override onlyAdmin {
+    _mintBatch(to, tokenIds, amounts, "");
+    tokenAmount += tokenIds.length;
   }
 }
