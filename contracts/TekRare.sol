@@ -6,11 +6,12 @@ import "./ERC1155Supply.sol";
 import "./AccessControl.sol";
 import "./Payable.sol";
 import "./ITekRare.sol";
+import "./AuctionManager.sol";
 
-contract TekRare is ITekRare, ERC1155Supply, AccessControl, Payable {
+contract TekRare is ITekRare, ERC1155Supply, AccessControl, Payable, AuctionManager {
   uint public override tokenAmount;
 
-  constructor (string memory uri) ERC1155(uri) {}
+  constructor (string memory uri) ERC1155(uri) AuctionManager(payable(this)) {}
 
   function setUri(string memory uri) public override onlyAdmin {
     _setURI(uri);
