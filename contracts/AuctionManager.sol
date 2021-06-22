@@ -58,7 +58,7 @@ abstract contract AuctionManager is IAuctionManager {
         if (block.timestamp >= auction.endTime() && !auction.auctionManagerPayed()) {
           totalRevenue += auction.withdrawForAuctionManager();
         }
-      } 
+      }
     }
     return totalRevenue;
   }
