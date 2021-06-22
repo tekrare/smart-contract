@@ -163,7 +163,7 @@ abstract contract AuctionManager is IAuctionManager, AccessControl {
     );
   }
 
-  function setContractPercentage(uint8 _contractPercentage) public override {
+  function setContractPercentage(uint8 _contractPercentage) public override onlyAdmin {
     contractPercentage = _contractPercentage;
   }
 }
