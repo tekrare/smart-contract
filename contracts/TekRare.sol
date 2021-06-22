@@ -49,8 +49,4 @@ contract TekRare is ITekRare, ERC1155Supply, AccessControl, Payable, AuctionMana
     for (uint i = 0; i < tokenIds.length; i++)
       _createGenesisAuction(startingBids[i], biddingTimes[i], tokenIds[i]);
   }
-
-  function collectEndedAuctions() public override onlyAdmin returns (uint) {
-    return _collectEndedAuctions();
-  }
 }

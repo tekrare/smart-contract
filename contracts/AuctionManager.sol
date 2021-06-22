@@ -5,8 +5,9 @@ pragma solidity ^0.8.0;
 import "./Auction.sol";
 import "./ITekRare.sol";
 import "./AuctionData.sol";
+import "./AccessControl.sol";
 
-abstract contract AuctionManager is IAuctionManager {
+abstract contract AuctionManager is IAuctionManager, AccessControl {
   mapping (uint => Auction[]) auctions;
   ITekRare owner;
   uint8 contractPercentage = 15;
@@ -48,7 +49,7 @@ abstract contract AuctionManager is IAuctionManager {
     auctions[tokenId].push(new Auction(startingBid, biddingTime, thisPayable, thisPayable, contractPercentage));
   }
 
-  function _collectEndedAuctions() internal returns (uint) {
+  function collectEndedAuctions() public override onlyAdmin returns (uint) {
     Auction auction;
     uint tokenAmount = owner.tokenAmount();
     uint totalRevenue = 0;

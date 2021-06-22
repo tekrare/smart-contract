@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "./AuctionData.sol";
 
 interface IAuctionManager {
+  function collectEndedAuctions() external returns (uint);
   function createAuction(uint startingBid, uint biddingTime, uint tokenId) external;
   function bidAuction(uint tokenId, address seller) external payable;
   function withdrawAuction(uint tokenId, address seller) external returns (bool, uint);
