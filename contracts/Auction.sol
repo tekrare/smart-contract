@@ -124,7 +124,8 @@ contract Auction is Payable {
     if (block.timestamp < endTime || auctionManagerPayed)
       return 0;
 
-    uint auctionManagerRevenue = (highestBid() * contractPercentage) / 100;
+    uint revenuePercentage = seller == address(auctionManager) ? 100 : contractPercentage;
+    uint auctionManagerRevenue = (highestBid() * revenuePercentage) / 100;
 
     auctionManagerPayed = true;
     auctionManager.transfer(auctionManagerRevenue); // Send 15% of the auction to the AuctionManager
