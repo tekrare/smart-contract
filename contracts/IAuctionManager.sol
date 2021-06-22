@@ -12,4 +12,5 @@ interface IAuctionManager {
   function getPendingReturnAuctions() external view returns (AuctionData[] memory);
   function getAuctions() external view returns (AuctionData[] memory);
   function getAuction(uint tokenId, address seller) external view returns (AuctionData memory);
+  function setContractPercentage(uint8 contractPercentage) external;
 }
