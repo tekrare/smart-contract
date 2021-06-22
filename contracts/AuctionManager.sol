@@ -160,4 +160,9 @@ abstract contract AuctionManager is IAuctionManager {
       auction.endTime(),
       auction.seller() == address(this)
     );
+  }
+
+  function setContractPercentage(uint8 _contractPercentage) public override {
+    contractPercentage = _contractPercentage;
+  }
 }
