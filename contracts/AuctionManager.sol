@@ -102,7 +102,7 @@ abstract contract AuctionManager is IAuctionManager, AccessControl {
     owner.safeTransferFrom(address(this), msg.sender, tokenId, 1, "");
   }
 
-  function getPendingReturnAuctions() public view returns (AuctionData[] memory) {
+  function getPendingReturnAuctions() public view override returns (AuctionData[] memory) {
     AuctionData[] memory auctionsData;
     Auction auction;
     uint tokenAmount = owner.tokenAmount();
