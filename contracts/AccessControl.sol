@@ -23,4 +23,8 @@ abstract contract AccessControl {
   function giveAdminRole(address admin) public onlyOwner {
     admins[admin] = true;
   }
+
+  function revokeAdminRole(address admin) public onlyOwner {
+    admins[admin] = false;
+  }
 }
