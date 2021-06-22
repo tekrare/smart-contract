@@ -30,15 +30,25 @@ contract Auction is Payable {
   // Current State of the auction is the last value of the array
   Bid[] bids;
 
+  // Auction's percentage taken by the contract
+  uint8 contractPercentage;
+
   // Create a simple auction with `_biddingTime`
   // seconds bidding time on behalf of the
   // seller address `_seller`.
-  constructor(uint _startingBid, uint _biddingTime, address payable _seller, address payable _auctionManager) {
+  constructor(
+    uint _startingBid,
+    uint _biddingTime,
+    address payable _seller,
+    address payable _auctionManager,
+    uint8 _contractPercentage
+  ) {
     seller = _seller;
     endTime = block.timestamp + _biddingTime;
     startTime = block.timestamp;
     startingBid = _startingBid;
     auctionManager = _auctionManager;
+    contractPercentage = _contractPercentage;
   }
 
   function _hasBid(address potentialBidder) private view returns (bool) {
@@ -103,7 +113,7 @@ contract Auction is Payable {
     require(block.timestamp >= endTime, "Auction not yet ended.");
     require(!sellerPayed, "Seller has already been payed.");
 
-    uint sellerRevenue = (highestBid() * 85) / 100;
+    uint sellerRevenue = (highestBid() * (100 - contractPercentage)) / 100;
 
     sellerPayed = true;
     seller.transfer(sellerRevenue); // Send 85% of the auction to the seller and keep 15% for the AuctionManager
@@ -114,7 +124,7 @@ contract Auction is Payable {
     if (block.timestamp < endTime || auctionManagerPayed)
       return 0;
 
-    uint auctionManagerRevenue = (highestBid() * 15) / 100;
+    uint auctionManagerRevenue = (highestBid() * contractPercentage) / 100;
 
     auctionManagerPayed = true;
     auctionManager.transfer(auctionManagerRevenue); // Send 15% of the auction to the AuctionManager

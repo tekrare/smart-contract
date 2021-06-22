@@ -9,6 +9,7 @@ import "./AuctionData.sol";
 abstract contract AuctionManager is IAuctionManager {
   mapping (uint => Auction[]) auctions;
   ITekRare owner;
+  uint8 contractPercentage = 15;
 
   constructor (address payable _owner) {
     owner = ITekRare(_owner);
@@ -44,7 +45,7 @@ abstract contract AuctionManager is IAuctionManager {
   function _createGenesisAuction(uint startingBid, uint biddingTime, uint tokenId) internal {
     address payable thisPayable = payable(address(this));
 
-    auctions[tokenId].push(new Auction(startingBid, biddingTime, thisPayable, thisPayable));
+    auctions[tokenId].push(new Auction(startingBid, biddingTime, thisPayable, thisPayable, contractPercentage));
   }
 
   function _collectEndedAuctions() internal returns (uint) {
@@ -69,7 +70,7 @@ abstract contract AuctionManager is IAuctionManager {
     require(owner.balanceOf(msg.sender, tokenId) > 0, "Token is not owned by this account.");
 
     owner.safeTransferFrom(msg.sender, address(this), tokenId, 1, "");
-    auctions[tokenId].push(new Auction(startingBid, biddingTime, payable(msg.sender), payable(address(this))));
+    auctions[tokenId].push(new Auction(startingBid, biddingTime, payable(msg.sender), payable(address(this)), contractPercentage));
   }
 
   function bidAuction(uint tokenId, address seller) public override payable {
