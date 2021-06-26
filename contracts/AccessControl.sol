@@ -10,13 +10,21 @@ abstract contract AccessControl {
     owner = msg.sender;
   }
 
-  modifier onlyOwner() {
+  function _onlyOwner() internal view {
     require(msg.sender == owner);
+  }
+
+  function _onlyAdmin() internal view {
+    require(msg.sender == owner || admins[msg.sender]);
+  }
+
+  modifier onlyOwner() {
+    _onlyOwner();
     _;
   }
 
   modifier onlyAdmin() {
-    require(msg.sender == owner || admins[msg.sender]);
+    _onlyAdmin();
     _;
   }
 
