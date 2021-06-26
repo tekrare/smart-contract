@@ -7,6 +7,9 @@
   "author": "Lucas Sanchez",
   "license": "MIT",
   "dependencies": {
-    "@openzeppelin/contracts": "^4.1.0"
+    "@openzeppelin/contracts": "^4.1.0",
+    "@truffle/hdwallet-provider": "^1.4.1",
+    "truffle-contract-size": "^2.0.1",
+    "truffle-flattener": "^1.5.0"
   }
 }
